@@ -16,7 +16,13 @@
         </ul>
     </div>
     @endif
-
+    
+    @if($message)
+        <div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>{{$message}}</strong>
+        </div>
+    @endif 
     <div class="container">
         <div class="row">
             <div class="col-4">
@@ -42,16 +48,16 @@
                         <?php $count = 1; ?>
                         @foreach($data as $row)
                         <tr>
-                            <th>{{$count++}}</th>
-                            <td>{{$row->title}}</td>
-                            <td>{{ucfirst($row->status)}}</td>
-                            <td>
-                                <input type="checkbox" class="form-control" @if($row->completed) checked @endif>
+                            <th scope="row"> {{$count++}}</th>
+                            <td style="text-align:center">{{$row->title}}</td>
+                            <td style="text-align:center">{{ucfirst($row->status)}}</td>
+                            <td style="text-align:center">
+                                <input wire:click="completed({{$row->id}})" type="checkbox" class="form-check-input" @if($row->completed) checked @endif>
                             </td>
-                            <td>
-                                {{$row->deadline}}
+                            <td style="text-align:center">
+                                {{$row->deadline_date}}
                             </td>
-                            <td>
+                            <td style="text-align:center">
                                 <button wire:click="edit({{$row->id}})" class="btn btn-xs btn-warning">Edit</button>
                                 <button wire:click="destroy({{$row->id}})" class="btn btn-xs btn-danger">DEL</button>
                             </td>
